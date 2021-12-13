@@ -1,0 +1,93 @@
+@import "./../_globals";
+
+.content {  
+    @include display-flex();
+    flex-flow: row nowrap;
+
+    &__title {
+        color: $accent-color;
+    }
+
+    &__area {
+        color: $text-color;
+    }
+
+    &__name {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #name {
+        width: 200px;
+        height: 35px;
+        border-radius: 8px;
+        border: none;
+        font-size: 15px;
+    }
+
+    &__description {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #description {
+        width: 450px;
+        height: 150px;
+        border-radius: 8px;
+        border: none;
+        font-size: 15px;
+    }
+
+    &__difficulty {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #difficulty {
+        width: 50px;
+        height: 30px;
+        text-align: center;
+        border-radius: 8px;
+        border: none;
+        font-size: 15px;
+    }
+
+    &__checkbox {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #checkbox {
+
+    }
+
+    &__button {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #btnOk {
+        width: 50px;
+        height: 40px;
+        border-radius: 8px;
+        border: none;
+        background-color: #777474;
+        font-size: 18px;
+        margin-right: 5px;        
+    } 
+    & #btnOk:hover {
+        background-color: $accent-color;
+        color: white;
+    }
+
+    
+    #btnCancel {
+        background-color: $accent-color;
+        width: 80px;
+        height: 40px;
+        border-radius: 8px;
+        font-size: 18px;
+        color: white;
+        border: none;
+    }
+    & #btnCancel:hover {
+        background-color: #60d166;
+    }
+    
+
+}

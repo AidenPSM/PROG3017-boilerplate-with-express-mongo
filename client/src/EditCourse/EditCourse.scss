@@ -1,0 +1,35 @@
+@import "./../_globals";
+
+.content {  
+    @include display-flex();
+    flex-flow: row nowrap;
+
+    &__title {
+        color: $accent-color;
+    }
+
+    &__courseCode__edit {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #courseCode__edit {
+        width: 200px;
+        height: 35px;
+        border-radius: 8px;
+        border: none;
+        color: grey;
+        font-size: 15px;
+    }
+
+    &__courseName {
+        color: $text-color;
+        margin-bottom: 20px;
+    }
+    #courseName {
+        width: 200px;
+        height: 35px;
+        border-radius: 8px;
+        border: none;
+    }
+    
+}

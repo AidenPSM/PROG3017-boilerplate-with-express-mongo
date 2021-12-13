@@ -1,0 +1,36 @@
+@import "./globals";
+
+body {
+  background-color: $background-color;
+  margin-left: 5%;
+}
+
+.main {
+  height:100%;
+  a {
+      color:$accent-color;
+      text-decoration: none;
+  }
+  a:hover {
+      text-decoration: underline;
+  }
+}
+
+.header {
+  @include display-flex();
+  flex-flow: row wrap;
+  align-items:center;
+
+  color: $text-color;
+
+  font-weight: bold;
+  font-size:20px;
+  padding-bottom:10px;
+}
+
+.footer {
+  font-weight: bold;
+  margin-top:40px;
+  margin-bottom:10px; 
+}
+

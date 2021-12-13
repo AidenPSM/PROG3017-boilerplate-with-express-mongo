@@ -1,0 +1,19 @@
+@import "./../_globals";
+
+.content {
+    @include display-flex();
+    flex-flow: row nowrap;
+
+    &__dTitle {
+        color:$text-color;
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+
+    &__delete {
+        color:$text-color;
+        margin-bottom: 20px;
+        font-size: 20px;
+        font-weight: bold;
+    }
+}

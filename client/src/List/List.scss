@@ -1,0 +1,64 @@
+@import "./../_globals";
+
+.content {  
+    @include display-flex();
+    flex-flow: row nowrap;
+
+    // display: flex;
+    // flex-direction: row;     
+
+    &__section {
+        margin-bottom:20px;
+    }
+
+    &__caption__tech {
+        color:$accent-color;
+    }
+
+    &__caption__course {
+        color:$accent-color;
+        margin-left: 90px;
+    }
+    
+    &__list__tech {
+        border-left: 5px solid $accent_color;
+        margin-left:30px;
+        padding-left:10px;
+        padding-top:5px;        
+        padding-bottom:3px;                
+
+        & a {
+            color: $text-color;        
+            font-size:18px;
+            text-decoration: none;
+        }
+        & a:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__list__course {
+        border-left: 5px solid $accent_color;
+        margin-left:120px;
+        padding-left:10px;
+        padding-top:5px;        
+        padding-bottom:3px;                
+
+        & a {
+            color: $text-color;       
+            font-size:18px;
+            text-decoration: none;
+        }
+        & a:hover {
+            text-decoration: underline;
+        }
+    }
+
+    &__button {
+        color:$text-color;
+        margin-right:5px;
+    }
+    &__button:hover {
+        color:$accent-color;
+    }
+}

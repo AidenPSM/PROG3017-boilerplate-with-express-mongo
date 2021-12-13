@@ -1,0 +1,14 @@
+$tablet: "screen and (max-width:660px)";
+$phone: "screen and (max-width:660px)";
+$accent-color:#10b158;
+$text-color:#4c4c4e;
+$background-color:#c7c4c4;
+$greyed-color: #C0C0C0;
+
+@mixin display-flex() {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+}
