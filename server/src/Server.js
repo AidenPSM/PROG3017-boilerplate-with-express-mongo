@@ -11,6 +11,8 @@ const DB_NAME = "dbTechs";
 
 // construct application object via express
 let app = express();
+// app.use(express.json());
+// app.use(express.urlencoded({extended:true}));
 // add cors as middleware to handle CORs errors while developing
 app.use(cors());
 
@@ -32,7 +34,7 @@ app.get("/get", async (request, response) => {
         // get reference to database via name
         let db = mongoClient.db(DB_NAME);
         let techArray = await db.collection("technologies").find().sort("name",1).toArray();
-        let courseArray = await db.collection("courses").find().sort("courseCode",1).toArray();
+        let courseArray = await db.collection("courses").find().sort("code",1).toArray();
         let json = { "technologies": techArray, "courses":courseArray};
         // serializes sampleJSON to string format
         response.status(200);
@@ -46,9 +48,7 @@ app.get("/get", async (request, response) => {
     }
 });
 
-
-
-app.post("/post", async (request, response) => {
+app.post("/tech/post", async (request, response) => {
     let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
     // Use connect method to connect to the server
     try {
@@ -66,7 +66,7 @@ app.post("/post", async (request, response) => {
         });
 
         // add new document into DB collection
-        let result = await mongoClient.db(DB_NAME).collection("technologies").insertOne(request.body);
+        let result = await techCollection.insertOne(request.body);
 
         // status code for created
         response.status(200);
@@ -81,8 +81,41 @@ app.post("/post", async (request, response) => {
     }
 });
 
+app.post("/course/post", async (request, response) => {
+    let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
+    // Use connect method to connect to the server
+    try {
+        await mongoClient.connect(); 
+        // get reference to desired collection in DB
+        let courseCollection = mongoClient.db(DB_NAME).collection("courses");
 
-app.put("/put/:id", async (request, response) => {
+        // sanitize form input
+        request.body.code = request.sanitize(request.body.code);
+        request.body.name = request.sanitize(request.body.name);
+
+        // add new document into DB collection
+        let result = await courseCollection.insertOne(request.body);
+
+        console.log("Test");
+
+        console.log(request.body);
+
+        // status code for created
+        response.status(200);
+        response.send(result);
+        
+        
+    } catch (error) {
+        response.status(500);
+        response.send({error: error.message});
+        throw error;
+    } finally {
+        mongoClient.close();
+    }
+});
+
+
+app.put("tech/put/:id", async (request, response) => {
     let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
     // Use connect method to connect to the server
     try {
@@ -126,7 +159,46 @@ app.put("/put/:id", async (request, response) => {
     }
 });
 
-app.delete("/delete/:id", async (request, response) => {
+app.put("/course/put/:id", async (request, response) => {
+    let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
+    // Use connect method to connect to the server
+    try {
+        await mongoClient.connect(); 
+        // get reference to desired collection in DB
+        let courseCollection = mongoClient.db(DB_NAME).collection("courses");
+
+        // isolating route parameter
+        let id = new ObjectId(request.sanitize(request.params.id));
+
+        // sanitize form input
+        request.body.code = request.sanitize(request.body.code);
+        request.body.name = request.sanitize(request.body.name);
+
+        // add new document into DB collection
+        let selector = { "_id": id };
+        let newValues = { $set: {"code": request.body.code, "name":request.body.name } };
+        let result = await courseCollection.updateOne(selector, newValues);
+
+        if (result.matchedCount <= 0) {
+            response.status(404);
+            response.send({error: "No Course documents found with ID"});
+            mongoClient.close();
+            return;
+        }
+        
+        response.status(200);
+        response.send(result);
+        
+    } catch (error) {
+        response.status(500);
+        response.send({error: error.message});
+        throw error;
+    } finally {
+        mongoClient.close();
+    }
+});
+
+app.delete("/tech/delete/:id", async (request, response) => {
     // construct MongoClient object for working with MongoDB
     let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
     // Use connect method to connect to the server
@@ -134,6 +206,7 @@ app.delete("/delete/:id", async (request, response) => {
         await mongoClient.connect();
         // get reference to desired collection in DB
         let techCollection = mongoClient.db(DB_NAME).collection("technologies");
+        // let courseCollection = mongoClient.db(DB_NAME).collection("courses")
         // isolate route parameter
         let id = new ObjectId(request.sanitize(request.params.id));
         
@@ -156,28 +229,35 @@ app.delete("/delete/:id", async (request, response) => {
     }
 });
 
-// app.get("/get", async (request, response) => {
-//     // construct a MongoClient object, passing in additional options
-//     let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
-
-//     try {
-//         await mongoClient.connect();
-//         // get reference to database via name
-//         let db = mongoClient.db(DB_NAME);
-//         let courseArray = await db.collection("courses").find().sort("courseCode",1).toArray();
-//         let json = { "courses": courseArray };
-//         // serializes sampleJSON to string format
-//         response.status(200);
-//         response.send(json);
-//     } catch (error) {
-//         response.status(500);
-//         response.send({error: error.message});
-//         throw error;    
-//     } finally {
-//         mongoClient.close();
-//     }
-// });
-
+app.delete("/course/delete/:id", async (request, response) => {
+    // construct MongoClient object for working with MongoDB
+    let mongoClient = new MongoClient(URL, { useUnifiedTopology: true });
+    // Use connect method to connect to the server
+    try {
+        await mongoClient.connect();
+        // get reference to desired collection in DB
+        let courseCollection = mongoClient.db(DB_NAME).collection("courses");
+        // isolate route parameter
+        let id = new ObjectId(request.sanitize(request.params.id));
+        
+        let selector = { "_id": id };
+        let result = await courseCollection.deleteOne(selector); 
+        // status code for created
+        if (result.deletedCount <= 0) {
+            response.status(404);
+            response.send({error: 'No courses documents found with ID'});
+            return;
+        }
+        response.status(200);
+        response.send(result);
+    } catch (error) {
+        response.status(500);
+        response.send({error: error.message});
+        throw error;
+    } finally {
+        mongoClient.close();
+    }
+});
 
 // wildcard to handle all other non-api URL routings and point to index.html
 app.use((request, response) => {

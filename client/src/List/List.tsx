@@ -6,10 +6,7 @@ import { ComponentProps, Technology, Course } from './/../Tools/data.model';
 
 // find the technology object with the id route parameter
 
-const List = ( { technologies }:ComponentProps, { courses }:ComponentProps ) => {
-
-    // let { id } = useParams<{id:string}>();
-    // let technology:(Technology | undefined) = technologies.find(item => item._id === id);
+const List = ( { technologies, courses }:ComponentProps ) => {
 
     // ---------------------------------- render to the DOM
     return(
@@ -29,11 +26,11 @@ const List = ( { technologies }:ComponentProps, { courses }:ComponentProps ) => 
                 {/* <div> below to be rendered For each technology */}
                 {technologies.map((data:Technology, n:number) => 
                     <div key={n} className="content__list__tech">
-                        <Link to = {`/EditTech`}>  
+                        <Link to = {`/EditTech/${data._id}`}>  
                             <i className="fas fa-pencil-alt content__button" >
                             </i>
                         </Link>
-                        <Link to = {`/DeleteTech`}>  
+                        <Link to = {`/DeleteTech/${data._id}`}>  
                             <i className="fas fa-trash-alt content__button" >
                             </i>
                         </Link>
@@ -57,11 +54,11 @@ const List = ( { technologies }:ComponentProps, { courses }:ComponentProps ) => 
                 {/* <div> below to be rendered For each technology */}
                 {courses.map((courses:Course, n:number) =>
                     <div key={n} className="content__list__course">
-                        <Link to = {`/EditCourse`}>  
+                        <Link to = {`/EditCourse/${courses._id}`}>  
                             <i className="fas fa-pencil-alt content__button" >
                             </i>
                         </Link>
-                        <Link to = {`/DeleteCourse`}>  
+                        <Link to = {`/DeleteCourse/${courses._id}`}>  
                             <i className="fas fa-trash-alt content__button" >
                             </i>
                         </Link>

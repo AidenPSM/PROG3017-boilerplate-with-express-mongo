@@ -127,40 +127,40 @@ db.courses.drop();
 // insert new documents into collection
 db.courses.insert([
     {
-        "courseCode": "APPD1001",
-        "courseName": "User Interface Design & Development"
+        "code": "APPD1001",
+        "name": "User Interface Design & Development"
     },
     {
-        "courseCode": "INET2005",
-        "courseName": "Web Application Programming I"
+        "code": "INET2005",
+        "name": "Web Application Programming I"
     },
     {
-        "courseCode": "PROG1400",
-        "courseName": "Intro to Object Oriented Programming"
+        "code": "PROG1400",
+        "name": "Intro to Object Oriented Programming"
     },
     {
-        "courseCode": "PROG1700",
-        "courseName": "Logic and Programming"
+        "code": "PROG1700",
+        "name": "Logic and Programming"
     },
     {
-        "courseCode": "PROG2700",
-        "courseName": "Client Side Programming"
+        "code": "PROG2700",
+        "name": "Client Side Programming"
     },
     {
-        "courseCode": "PROG3017",
-        "courseName": "Full Stack Programming"
+        "code": "PROG3017",
+        "name": "Full Stack Programming"
     },
     {
-        "courseCode": "WEBD1000",
-        "courseName": "Website Development"
+        "code": "WEBD1000",
+        "name": "Website Development"
     },
     {
-        "courseCode": "WEBD3000",
-        "courseName": "Web Application Programming II"
+        "code": "WEBD3000",
+        "name": "Web Application Programming II"
     },
     {
-        "courseCode": "WEBD3027",
-        "courseName": "Developing for Content Management Systems"
+        "code": "WEBD3027",
+        "name": "Developing for Content Management Systems"
     }
 ]);
 

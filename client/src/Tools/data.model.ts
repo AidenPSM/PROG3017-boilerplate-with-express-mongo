@@ -14,11 +14,13 @@ export interface Technology {
 }
 
 export interface Course {
-    code: string;
-    name: string;
+    _id: string;
+    code:string;
+    name:string;
 }
 
 export interface ComponentProps {
     technologies:Technology[];
     courses:Course[];
 }
+
